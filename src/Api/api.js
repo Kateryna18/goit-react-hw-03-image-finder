@@ -7,6 +7,3 @@ export const fetchImages = async searchQuery => {
     return response
 }
 
-export default {
-    fetchImages,
-  };

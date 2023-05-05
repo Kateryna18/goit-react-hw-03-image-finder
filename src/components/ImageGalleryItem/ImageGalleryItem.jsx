@@ -1,9 +1,10 @@
 import React from 'react';
 
-export function ImageGalleryItem({previewURL, tags, id}) {
+export function ImageGalleryItem({url, largeUrl, tags}) {
+  
   return (
-    <li className="gallery-item" key={id}>
-      <img src={previewURL} alt={tags} />
+    <li className="gallery-item">
+      <img src={url} alt={tags} width="250px"/>
     </li>
   );
 }
