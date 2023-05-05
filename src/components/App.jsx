@@ -10,22 +10,37 @@ export class App extends Component {
   state = {
     query: '',
     images: [],
-    IsSpinner: false,
+    IsLoading: false,
+    error: null,
   };
 
   async componentDidMount() {
-    console.log('componentDidMount')
-    // const response = await api.fetchImages(this.state.query);
-    // this.setState({images: response.data.hits});
+    console.log('componentDidMount');
+    // this.setState({ IsLoading: true });
+    // try {
+    //   const response = await fetchImages(this.state.query);
+    //   this.setState({ images: response.data.hits });
+    // } catch (error) {
+    //   this.setState({ error });
+    // } finally {
+    //   this.setState({ IsLoading: false });
+    // }
   }
 
   async componentDidUpdate(prevProps, prevState) {
     console.log('componentDidUpdate');
-
     if (this.state.query !== prevState.query) {
-      const response = await fetchImages(this.state.query);
+      this.setState({ IsLoading: true });
+      try {
+        
+        const response = await fetchImages(this.state.query);
 
-      this.setState({ images: response.data.hits});
+        this.setState({ images: response.data.hits });
+      } catch (error) {
+        this.setState({ error });
+      } finally {
+        this.setState({ IsLoading: false });
+      }
     }
   }
 
@@ -41,6 +56,7 @@ export class App extends Component {
 
   render() {
     const imagesState = this.state;
+    const IsSpinner = imagesState.IsLoading;
     return (
       <>
         <Searchbar onSubmit={this.onSubmit} />
@@ -48,17 +64,18 @@ export class App extends Component {
         {imagesState.images.length !== 0 && (
           <Button onShowMore={this.onShowMore} />
         )}
-        <ThreeDots
-          height="80"
-          width="80"
-          radius="9"
-          color="#4fa94d"
-          ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          wrapperClassName=""
-          visible={true}
-        />
-        
+        {IsSpinner && (
+          <ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="#4fa94d"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClassName=""
+            visible={true}
+          />
+        )}
       </>
     );
   }
