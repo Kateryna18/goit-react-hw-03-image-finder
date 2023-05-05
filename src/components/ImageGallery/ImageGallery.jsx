@@ -2,7 +2,7 @@ import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import React from 'react';
 
 export function ImageGallery({ images }) {
-  console.log(images);
+  // console.log(images);
   return (
     <ul className="gallery">
       {images.map(({ webformatURL, id, largeImageURL, tags }) => (
