@@ -45,11 +45,6 @@ export class App extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-
-    if(this.state.query.trim() === '') {
-      alert('Введіть значення для пошуку');
-      return
-    }
     const searchQuery = e.target.searchQuery.value;
     this.setState({ query: searchQuery });
   };
@@ -64,11 +59,7 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSubmit={this.onSubmit} />
-        <ImageGallery images={this.state.images} />
-        {imagesState.images.length !== 0 && (
-          <Button onShowMore={this.onShowMore} />
-        )}
-        {IsSpinner && (
+        {IsSpinner ? 
           <ThreeDots
             height="80"
             width="80"
@@ -78,8 +69,12 @@ export class App extends Component {
             wrapperStyle={{}}
             wrapperClassName=""
             visible={true}
-          />
+          /> : <ImageGallery images={this.state.images} />
+        }
+        {imagesState.images.length !== 0 && (
+          <Button onShowMore={this.onShowMore} />
         )}
+        
         {/* <ToastContainer autoClose={3000}/> */}
       </>
     );
