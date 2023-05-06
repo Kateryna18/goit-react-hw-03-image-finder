@@ -5,6 +5,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 
 import { ThreeDots } from 'react-loader-spinner';
+// import { ToastContainer, toast } from 'react-toastify';
 
 export class App extends Component {
   state = {
@@ -32,9 +33,7 @@ export class App extends Component {
     if (this.state.query !== prevState.query) {
       this.setState({ IsLoading: true });
       try {
-        
         const response = await fetchImages(this.state.query);
-
         this.setState({ images: response.data.hits });
       } catch (error) {
         this.setState({ error });
@@ -46,6 +45,11 @@ export class App extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+
+    if(this.state.query.trim() === '') {
+      alert('Введіть значення для пошуку');
+      return
+    }
     const searchQuery = e.target.searchQuery.value;
     this.setState({ query: searchQuery });
   };
@@ -76,6 +80,7 @@ export class App extends Component {
             visible={true}
           />
         )}
+        {/* <ToastContainer autoClose={3000}/> */}
       </>
     );
   }
