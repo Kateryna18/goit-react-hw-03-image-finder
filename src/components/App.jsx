@@ -13,6 +13,7 @@ export class App extends Component {
     images: [],
     IsLoading: false,
     error: null,
+    page: 1
   };
 
   async componentDidMount() {
@@ -40,6 +41,16 @@ export class App extends Component {
       } finally {
         this.setState({ IsLoading: false });
       }
+    } else if (this.state.page !== prevState.page) {
+      this.setState({ IsLoading: true });
+      try {
+        const response = await fetchImages(this.state.query, this.state.page);
+        this.setState({ images: response.data.hits });
+      } catch (error) {
+        this.setState({ error });
+      } finally {
+        this.setState({ IsLoading: false });
+      }
     }
   }
 
@@ -51,6 +62,9 @@ export class App extends Component {
 
   onShowMore = e => {
     e.preventDefault();
+    this.setState(prevState => {
+      return {page: prevState.page + 1}
+    })
   };
 
   render() {
