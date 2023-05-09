@@ -1,10 +1,11 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import React from 'react';
+import css from './ImageGallery.module.css';
 
-export function ImageGallery({ images }) {
+export function ImageGallery({ images,  onClick}) {
   // console.log(images);
   return (
-    <ul className="gallery">
+    <ul className={css.gallery} onClick={onClick}>
       {images.map(({ webformatURL, id, largeImageURL, tags }) => (
         <ImageGalleryItem
           key={id}
