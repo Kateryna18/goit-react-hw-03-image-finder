@@ -20,7 +20,6 @@ export class App extends Component {
   };
 
   async componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate');
     if (this.state.query !== prevState.query) {
       this.setState({ IsLoading: true });
       try {
@@ -78,12 +77,12 @@ export class App extends Component {
   };
 
   render() {
-    const imagesState = this.state;
-    const IsSpinner = imagesState.IsLoading;
+    const {images, IsLoading, showModal, currentImage} = this.state;
+
     return (
       <div className={css.contentContainer}>
         <Searchbar onSubmit={this.onSubmit} />
-        {IsSpinner ? (
+        {IsLoading ? (
           <ThreeDots
             height="80"
             width="80"
@@ -95,16 +94,16 @@ export class App extends Component {
             visible={true}
           />
         ) : (
-          <ImageGallery onClick={this.showModal} images={this.state.images} />
+          <ImageGallery onClick={this.showModal} images={images} />
         )}
-        {imagesState.images.length !== 0 && (
+        {images.length !== 0 && (
           <Button onShowMore={this.onShowMore} />
         )}
-        {imagesState.showModal && (
+        {showModal && (
           <Modal onClose={this.closeModal}>
             <img
-              src={this.state.currentImage.src}
-              alt={this.state.currentImage.alt}
+              src={currentImage.src}
+              alt={currentImage.alt}
             />
           </Modal>
         )}
