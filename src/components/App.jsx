@@ -7,7 +7,6 @@ import { Button } from './Button/Button';
 
 import { ThreeDots } from 'react-loader-spinner';
 import Modal from './Modal/Modal';
-// import { ToastContainer, toast } from 'react-toastify';
 
 export class App extends Component {
   state = {
@@ -109,8 +108,6 @@ export class App extends Component {
             />
           </Modal>
         )}
-
-        {/* <ToastContainer autoClose={3000}/> */}
       </div>
     );
   }
