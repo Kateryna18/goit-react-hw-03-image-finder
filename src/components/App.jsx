@@ -82,7 +82,7 @@ export class App extends Component {
     return (
       <div className={css.contentContainer}>
         <Searchbar onSubmit={this.onSubmit} />
-        {IsLoading ? (
+        {IsLoading && 
           <ThreeDots
             height="80"
             width="80"
@@ -93,9 +93,8 @@ export class App extends Component {
             wrapperClassName=""
             visible={true}
           />
-        ) : (
-          <ImageGallery onClick={this.showModal} images={images} />
-        )}
+         }
+        <ImageGallery onClick={this.showModal} images={images} />
         {images.length !== 0 && (
           <Button onShowMore={this.onShowMore} />
         )}
